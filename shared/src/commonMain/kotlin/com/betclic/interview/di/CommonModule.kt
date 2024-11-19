@@ -1,37 +1,23 @@
 package com.betclic.interview.di
 
-import com.betclic.interview.home.data.PlayersDataRepository
-import com.betclic.interview.home.data.api.PlayersApiClient
-import com.betclic.interview.home.data.api.dto.PlayerDtoMapper
-import com.betclic.interview.home.domain.PlayersRepository
-import com.betclic.interview.home.domain.usecase.GetPlayersUseCase
 import io.ktor.client.HttpClient
-import org.koin.core.module.dsl.factoryOf
-import org.koin.dsl.module
+import io.ktor.client.plugins.defaultRequest
+import org.koin.core.annotation.ComponentScan
+import org.koin.core.annotation.Module
+import org.koin.core.annotation.Named
+import org.koin.core.annotation.Single
 
-val commonModule = module {
-    factoryOf(::PlayerDtoMapper)
-    factory {
-        HttpClient() {
-//            install(JsonFeature) {
-//                serializer = KotlinxSerializer()
-//            }
+@Module
+@ComponentScan("com.betclic.interview")
+class CommonModule {
+
+    @Single(createdAtStart = true)
+    @Named("playersUrl")
+    fun provideHttpClient(): HttpClient {
+        return HttpClient {
+            defaultRequest {
+                url("https://gbutel-betclic.github.io/Betclic_Interview/api/")
+            }
         }
-    }
-    factory {
-        PlayersApiClient(
-            ktorClient = get()
-        )
-    }
-    single<PlayersRepository> {
-        PlayersDataRepository(
-            playersApiClient = get(),
-            playerDtoMapper = get(),
-        )
-    }
-    factory {
-        GetPlayersUseCase(
-            repository = get(),
-        )
     }
 }

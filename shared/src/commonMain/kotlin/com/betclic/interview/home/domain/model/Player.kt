@@ -1,6 +1,6 @@
 package com.betclic.interview.home.domain.model
 
-internal data class Player(
+data class Player(
     val id: String,
     val name: String,
     val photo: String,
