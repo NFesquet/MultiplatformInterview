@@ -7,6 +7,8 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
+    kotlin("kapt")
+    alias(libs.plugins.hilt)
 }
 
 kotlin {
@@ -39,6 +41,14 @@ kotlin {
         }
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
+            implementation(libs.hilt.android)
+            configurations.getByName("kapt").dependencies.add(
+                org.gradle.api.internal.artifacts.dependencies.DefaultExternalModuleDependency(
+                    "com.google.dagger",
+                    "hilt-compiler",
+                    "2.48"
+                )
+            )
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.ios)
@@ -53,6 +63,7 @@ kotlin {
 dependencies {
     add("kspCommonMainMetadata", libs.koin.ksp.compiler)
     add("kspAndroid", libs.koin.ksp.compiler)
+//    add("kspAndroid", libs.hilt.compiler)
     add("kspIosX64", libs.koin.ksp.compiler)
     add("kspIosArm64", libs.koin.ksp.compiler)
     add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
