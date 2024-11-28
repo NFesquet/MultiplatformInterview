@@ -14,6 +14,6 @@ internal class PlayersApiClient(
 ) {
 
     suspend fun getPlayers(): List<PlayerDto> {
-        return ktorClient.get("").body()
+        return ktorClient.get("players/").body()
     }
 }
