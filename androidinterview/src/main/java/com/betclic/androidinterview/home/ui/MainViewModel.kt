@@ -18,6 +18,10 @@ class MainViewModel @Inject constructor(
     val state: StateFlow<MainViewState>
         get() = _state
 
+    init {
+        getPlayers()
+    }
+
     fun getPlayers() {
         viewModelScope.launch {
             val players = playersRepository.getPlayers()

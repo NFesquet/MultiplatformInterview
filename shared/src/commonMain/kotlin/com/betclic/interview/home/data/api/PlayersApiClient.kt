@@ -4,6 +4,7 @@ import com.betclic.interview.home.data.api.dto.PlayerDto
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
+import io.ktor.util.pipeline.PipelinePhase
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Named
 
@@ -13,6 +14,6 @@ internal class PlayersApiClient(
 ) {
 
     suspend fun getPlayers(): List<PlayerDto> {
-        return ktorClient.get("/players").body()
+        return ktorClient.get("").body()
     }
 }

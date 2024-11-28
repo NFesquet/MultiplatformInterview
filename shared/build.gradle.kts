@@ -35,6 +35,7 @@ kotlin {
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.serialization.json)
             implementation(libs.kotlinx.serialization)
+            implementation("io.ktor:ktor-client-content-negotiation:${libs.versions.ktor.get()}")
             implementation(libs.koin.core)
             implementation(libs.kotlinx.coroutines.core)
             api(libs.koin.annotations)
