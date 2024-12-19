@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.ksp)
     kotlin("kapt")
     alias(libs.plugins.hilt)
+//    id("co.touchlab.skie") version "0.9.5"
 }
 
 kotlin {

@@ -2,7 +2,7 @@ package com.betclic.androidinterview.home.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.betclic.interview.home.domain.PlayersRepository
+import com.betclic.interview.home.domain.usecase.GetPlayersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val playersRepository: PlayersRepository,
+    private val getPlayersUseCase: GetPlayersUseCase
 ) : ViewModel() {
 
     private val _state: MutableStateFlow<MainViewState> = MutableStateFlow(MainViewState.Loading)
@@ -24,7 +24,7 @@ class MainViewModel @Inject constructor(
 
     fun getPlayers() {
         viewModelScope.launch {
-            val players = playersRepository.getPlayers()
+            val players = getPlayersUseCase()
             if (players.isEmpty()) {
                 _state.value = MainViewState.Error("No players found")
             } else {
